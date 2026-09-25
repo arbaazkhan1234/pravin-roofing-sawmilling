@@ -1,26 +1,213 @@
 @import "tailwindcss";
 
+/* ============================================================
+   THEME — "Woody, warm, minimal"
+   Central design tokens. Edit colors/fonts here, not per-component.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base tones */
+  --color-bone: #f5f1ea;
+  --color-bone-dim: #ece5d8;
+  --color-charcoal: #1c1815;
+  --color-charcoal-soft: #262019;
+
+  /* Wood-tone accent palette (the real accents) */
+  --color-amber: #b5793a;
+  --color-amber-light: #d4a25f;
+  --color-walnut: #4a3223;
+  --color-terracotta: #a85c3f;
+
+  /* Brand red/blue — accent only, never dominant. Approximated from the logo. */
+  --color-brand-red: #e2231a;
+  --color-brand-blue: #1c3f94;
+
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-work-sans);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bone: var(--color-bone);
+  --color-bone-dim: var(--color-bone-dim);
+  --color-charcoal: var(--color-charcoal);
+  --color-charcoal-soft: var(--color-charcoal-soft);
+  --color-amber: var(--color-amber);
+  --color-amber-light: var(--color-amber-light);
+  --color-walnut: var(--color-walnut);
+  --color-terracotta: var(--color-terracotta);
+  --color-brand-red: var(--color-brand-red);
+  --color-brand-blue: var(--color-brand-blue);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll; avoid double-smoothing */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bone);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-amber);
+  color: var(--color-bone);
+}
+
+/* ============================================================
+   Grain texture overlay — subtle paper/wood-grain feel on sections.
+   Generated noise via SVG filter, no image asset needed. 3-5% opacity.
+   ============================================================ */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 200px 200px;
+}
+
+.grain-dark::before {
+  mix-blend-mode: overlay;
+  opacity: 0.06;
+}
+
+/* Even more restrained — cinematic film-grain feel for the footer, not a
+   textured-paper feel like the rest of the site's .grain sections. */
+.grain-cinematic::before {
+  mix-blend-mode: overlay;
+  opacity: 0.03;
+  background-size: 180px 180px;
+}
+
+/* Giant cropped footer wordmark — gradient fill via background-clip so the
+   letters read as emerging from the dark background rather than sitting
+   flat on top of it (dark at top, soft grey mid, bright cream at the base). */
+.footer-word {
+  background: linear-gradient(
+    to bottom,
+    rgba(245, 241, 234, 0) 0%,
+    rgba(245, 241, 234, 0.12) 40%,
+    rgba(200, 196, 188, 0.55) 68%,
+    rgba(245, 241, 234, 0.97) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hairline divider */
+.hairline {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.15;
+}
+
+/* Tracked-out uppercase eyebrow labels */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Sharp/minimally-rounded button, per brief: no SaaS-rounded corners */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.75rem;
+  border-radius: 3px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-brand-red);
+  color: var(--color-bone);
+  border: 1px solid var(--color-brand-red);
+}
+.btn-primary:hover {
+  background: transparent;
+  color: var(--color-bone);
+  border-color: var(--color-bone);
+}
+
+.btn-outline {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+.btn-outline:hover {
+  background: currentColor;
+}
+.btn-outline:hover {
+  color: var(--color-charcoal);
+}
+
+/* Nav underline hover effect */
+.nav-link {
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Reveal-on-scroll base state (GSAP flips these) */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(2.5rem);
+}
+
+/* Hide scrollbar on horizontal drag-scroll strips (gallery) while staying scrollable */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom scrollbar tone, purely cosmetic */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bone);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-walnut);
+  border-radius: 0;
 }
