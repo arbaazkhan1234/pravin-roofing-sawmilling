@@ -58,7 +58,11 @@ export default function Footer() {
       <div className="relative z-10 flex min-h-[100svh] flex-col">
         {/* Top row: mark + address (left), tagline (right).
             pt-28+ clears the persistent site nav bar fixed on top of this section. */}
-        <div className="flex items-start justify-between px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14">
+        <RevealOnScroll
+          stagger=":scope > *"
+          staggerAmount={0.15}
+          className="flex items-start justify-between px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14"
+        >
           <a href="#top" className="group flex items-center gap-3">
             <span className="flex h-10 w-10 items-center justify-center rounded-full border border-bone/40 transition-all duration-500 group-hover:rotate-[18deg] group-hover:border-bone sm:h-11 sm:w-11">
               <Image
@@ -79,7 +83,7 @@ export default function Footer() {
           <p className="eyebrow max-w-[10rem] text-right text-[0.62rem] leading-relaxed text-bone/80 sm:max-w-none">
             {footer.tagline}
           </p>
-        </div>
+        </RevealOnScroll>
 
         {/* Nav columns — vertically centered in the remaining space, which
             is where the background has already gone dark */}
@@ -171,16 +175,22 @@ export default function Footer() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] overflow-hidden text-center"
         style={{ transform: "translateY(9%)" }}
       >
-        <span
-          className="footer-word inline-block font-sans font-extrabold"
-          style={{
-            fontSize: "clamp(88px, 21vw, 400px)",
-            lineHeight: 0.78,
-            letterSpacing: "-0.04em",
-          }}
-        >
-          {footer.wordmark}
-        </span>
+        {/* Reveal wraps just the span (not this div, which already carries
+            its own static translateY(9%) positioning) — GSAP's own y-tween
+            on top of an existing percentage transform gets unreliable, so
+            keep them on separate elements. */}
+        <RevealOnScroll y={60} delay={0.15}>
+          <span
+            className="footer-word inline-block font-sans font-extrabold"
+            style={{
+              fontSize: "clamp(88px, 21vw, 400px)",
+              lineHeight: 0.78,
+              letterSpacing: "-0.04em",
+            }}
+          >
+            {footer.wordmark}
+          </span>
+        </RevealOnScroll>
       </div>
     </footer>
   );

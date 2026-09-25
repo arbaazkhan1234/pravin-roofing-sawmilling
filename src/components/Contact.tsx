@@ -32,7 +32,7 @@ export default function Contact() {
   return (
     <section id="contact" className="grain grain-dark bg-charcoal py-24 text-bone lg:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 lg:grid-cols-12 lg:gap-10 lg:px-10">
-        <RevealOnScroll className="lg:col-span-5">
+        <RevealOnScroll stagger=":scope > *" staggerAmount={0.1} className="lg:col-span-5">
           <p className="eyebrow text-amber-light">Get In Touch</p>
           <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
             Tell us what you&apos;re building.
@@ -81,13 +81,18 @@ export default function Contact() {
           </div>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.1} className="lg:col-span-6 lg:col-start-7">
+        <RevealOnScroll
+          stagger=".form-field"
+          staggerAmount={0.08}
+          delay={0.1}
+          className="lg:col-span-6 lg:col-start-7"
+        >
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <Field label="Name" name="name" required />
               <Field label="Phone" name="phone" type="tel" required />
             </div>
-            <div>
+            <div className="form-field">
               <label className="eyebrow mb-2 block text-[0.65rem] text-bone/60">
                 Product Interest
               </label>
@@ -107,7 +112,7 @@ export default function Contact() {
                 ))}
               </select>
             </div>
-            <div>
+            <div className="form-field">
               <label className="eyebrow mb-2 block text-[0.65rem] text-bone/60">
                 Message
               </label>
@@ -122,7 +127,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={status === "submitting"}
-              className="btn btn-primary w-full sm:w-auto disabled:opacity-60"
+              className="form-field btn btn-primary w-full sm:w-auto disabled:opacity-60"
             >
               {status === "submitting" ? "Sending…" : "Get a Quote"}
             </button>
@@ -156,7 +161,7 @@ function Field({
   required?: boolean;
 }) {
   return (
-    <div>
+    <div className="form-field">
       <label className="eyebrow mb-2 block text-[0.65rem] text-bone/60">
         {label}
       </label>

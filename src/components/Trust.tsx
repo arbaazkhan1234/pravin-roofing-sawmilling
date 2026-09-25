@@ -5,7 +5,7 @@ export default function Trust() {
   return (
     <section id="why" className="grain bg-bone-dim py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <RevealOnScroll className="max-w-xl">
+        <RevealOnScroll stagger=":scope > *" staggerAmount={0.12} className="max-w-xl">
           <p className="eyebrow text-walnut">Why Pravin</p>
           <h2 className="mt-5 font-serif text-4xl leading-tight text-charcoal sm:text-5xl">
             No shortcuts, no veneer.
@@ -13,8 +13,8 @@ export default function Trust() {
         </RevealOnScroll>
 
         <RevealOnScroll
-          stagger=".trust-point"
-          staggerAmount={0.1}
+          stagger=".trust-point > *"
+          staggerAmount={0.06}
           className="mt-14 divide-y divide-charcoal/12 border-t border-charcoal/12"
         >
           {trustPoints.map((point) => (

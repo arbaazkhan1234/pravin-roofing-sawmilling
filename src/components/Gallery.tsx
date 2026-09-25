@@ -6,7 +6,7 @@ export default function Gallery() {
   return (
     <section id="gallery" className="bg-charcoal py-24 text-bone lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <RevealOnScroll className="max-w-xl">
+        <RevealOnScroll stagger=":scope > *" staggerAmount={0.12} className="max-w-xl">
           <p className="eyebrow text-amber-light">Featured Work</p>
           <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
             A few pieces we&apos;re proud of.
@@ -14,12 +14,12 @@ export default function Gallery() {
         </RevealOnScroll>
       </div>
 
-      <RevealOnScroll className="mt-14">
+      <RevealOnScroll stagger=".gallery-item" staggerAmount={0.09} className="mt-14">
         <div className="scrollbar-none flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-6 lg:px-10">
           {gallery.map((item) => (
             <figure
               key={item.src}
-              className="group relative aspect-[4/5] w-[78vw] flex-none snap-start overflow-hidden sm:w-[46vw] lg:w-[30vw]"
+              className="gallery-item group relative aspect-[4/5] w-[78vw] flex-none snap-start overflow-hidden sm:w-[46vw] lg:w-[30vw]"
             >
               <Image
                 src={item.src}

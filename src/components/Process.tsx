@@ -5,7 +5,7 @@ export default function Process() {
   return (
     <section id="process" className="bg-walnut py-24 text-bone lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <RevealOnScroll className="max-w-xl">
+        <RevealOnScroll stagger=":scope > *" staggerAmount={0.12} className="max-w-xl">
           <p className="eyebrow text-amber-light">How It Works</p>
           <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
             From a conversation to a finished door.
@@ -13,8 +13,8 @@ export default function Process() {
         </RevealOnScroll>
 
         <RevealOnScroll
-          stagger=".process-step"
-          staggerAmount={0.12}
+          stagger=".process-step > *"
+          staggerAmount={0.06}
           className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0"
         >
           {process.map((step, i) => (

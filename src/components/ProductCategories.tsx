@@ -9,7 +9,7 @@ export default function ProductCategories() {
   return (
     <section id="products" className="bg-bone-dim py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <RevealOnScroll className="max-w-xl">
+        <RevealOnScroll stagger=":scope > *" staggerAmount={0.12} className="max-w-xl">
           <p className="eyebrow text-walnut">What We Build</p>
           <h2 className="mt-5 font-serif text-4xl leading-tight text-charcoal sm:text-5xl">
             Seven ways we put wood to work.

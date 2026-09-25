@@ -6,7 +6,7 @@ export default function WoodSpecies() {
   return (
     <section id="wood" className="grain bg-bone py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <RevealOnScroll className="max-w-xl">
+        <RevealOnScroll stagger=":scope > *" staggerAmount={0.12} className="max-w-xl">
           <p className="eyebrow text-walnut">The Wood We Work With</p>
           <h2 className="mt-5 font-serif text-4xl leading-tight text-charcoal sm:text-5xl">
             Seven species, imported and local.
@@ -14,8 +14,8 @@ export default function WoodSpecies() {
         </RevealOnScroll>
 
         <RevealOnScroll
-          stagger=".wood-item"
-          staggerAmount={0.08}
+          stagger=".wood-item > *"
+          staggerAmount={0.05}
           className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4"
         >
           {woodSpecies.map((wood) => (
